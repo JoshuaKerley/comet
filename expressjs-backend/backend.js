@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const services = require('./models/user-services')
+const services = require('./models/event-services')
 const app = express();
 const port = 5000;
 
@@ -11,16 +11,16 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.get('/users', async (req, res) => {
-    const name = req.query.name;
-    const job = req.query.job;
-    let result = await services.getUsers(name, job)
+//GETS ALL EVENTS (SHOULD NOT BE NEEDED ON FRONTEND)
+app.get('/events', async (req, res) => {
+    let result = await services.getEvents()
     res.send(result).end();
 });
 
-app.get('/users/:id', async (req, res) => {
-    const id = req.params['id']; //or req.params.id
-    let result = await services.findUserById(id);
+//GETS EVENTS CREATED BY SPECIFIC USER (EVENT COORDINATOR)
+app.get('/events/:user', async (req, res) => {
+    const user = req.params['user']; //or req.params.id
+    let result = await services.getEvents(user);
     if (result === undefined || result.length == 0)
         res.status(404).send('Resource not found.');
     else {
@@ -28,9 +28,9 @@ app.get('/users/:id', async (req, res) => {
     }
 });
 
-app.delete('/users/:id', async (req, res) => {
+app.delete('/events/:id', async (req, res) => {
     const id = req.params['id']; //or req.params.id
-    let result = await services.deleteUserById(id);
+    let result = await services.deleteEventById(id);
     if (result === undefined)
         res.status(404).send('Resource not found.');
     else {
@@ -38,12 +38,12 @@ app.delete('/users/:id', async (req, res) => {
     }
 });
 
-app.post('/users', async (req, res) => {
-    const userToAdd = req.body;
-    const user = await services.addUser(userToAdd);
+app.post('/events', async (req, res) => {
+    const eventToAdd = req.body;
+    const event = await services.addEvent(eventToAdd);
 
-    if(user != false) {
-        res.status(201).json(user).end();
+    if(event != false) {
+        res.status(201).json(event).end();
     }
     else {
         res.status(404).end();
