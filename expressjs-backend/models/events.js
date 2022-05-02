@@ -1,13 +1,37 @@
  const mongoose = require("mongoose");
 
-const EventSchema = new mongoose.Schema(
+ const TicketSchema = new mongoose.Schema(
   {
-    user: {   // event coordinator username
+    id: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    buyer_name: {
       type: String,
       required: true,
       trim: true,
     },
-    name: {   // event name
+    buyer_email: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    order_number: {
+      type: Number,
+      required: true,
+      trim: true,
+    }
+  });
+
+const EventSchema = new mongoose.Schema(
+  {
+    coordinator: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    event_name: {
       type: String,
       required: true,
       trim: true,
@@ -17,19 +41,26 @@ const EventSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    month: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    day: {
-      type: Number,
-      required: true,
-      trim: true,
+    date: {
+      month: {
+        type: Number,
+        required: true,
+        trim: true,
+      },
+      day: {
+        type: Number,
+        required: true,
+        trim: true,
+      },
+      year: {
+        rype: Number,
+        Required: true,
+        trim: true,
+      }
     },
     time_doors: {
       type: String,
-      required: true,
+      required: fal,
       trim: true,
     },
     time_show: {
@@ -37,9 +68,9 @@ const EventSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    age_rating: {
+    description: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
     tickets_total: {
@@ -56,7 +87,8 @@ const EventSchema = new mongoose.Schema(
       type: Number,
       required: true,
       trim: true,
-    }
+    },
+    tickets_sold: [TicketSchema]
   },
   { collection: "events_list" }
 );
