@@ -2,13 +2,14 @@ import React, {useState} from 'react';
 
 function Form(props)
 {
-    const [person, setPerson] = useState(
+    const [event, setEvent] = useState(
         {
+            coordinator: "Default",
             event_name: "",
             location: "",
             date: "",
             time_doors: "",
-            time_start: "",
+            time_show: "",
             description: "",
             tickets_total: "",
             tickets_available: "",
@@ -20,128 +21,137 @@ function Form(props)
     {
         const { name, value } = event.target;
         if (name === "event_name")
-        setPerson(
+        setEvent(
             {
+                coordinator: event['coordinator'],
                 event_name: value,
-                location: person['location'],
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                location: event['location'],
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "location")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
                 location: value,
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "date")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
                 date: value,
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "time_doors")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
-                date: person['date'],
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
+                date: event['date'],
                 time_doors: value,
-                time_start: person['time_start'], 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                time_show: event['time_show'], 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
-        if (name === "time_start")
-        setPerson(
+        if (name === "time_show")
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: value, 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: value, 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "description")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
                 description: value,
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "tickets_total")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
-                description: person['description'],
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
+                description: event['description'],
                 tickets_total: value,
-                tickets_available: person['tickets_available'],
-                tickets_price: person['tickets_price']
+                tickets_available: event['tickets_available'],
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "tickets_available")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
                 tickets_available: value,
-                tickets_price: person['tickets_price']
+                tickets_price: event['tickets_price']
             }
         );
         if (name === "tickets_price")
-        setPerson(
+        setEvent(
             {
-                event_name: person['event_name'],
-                location: person['location'],
-                date: person['date'],
-                time_doors: person['time_doors'],
-                time_start: person['time_start'], 
-                description: person['description'],
-                tickets_total: person['tickets_total'],
-                tickets_available: person['tickets_available'],
+                coordinator: event['coordinator'],
+                event_name: event['event_name'],
+                location: event['location'],
+                date: event['date'],
+                time_doors: event['time_doors'],
+                time_show: event['time_show'], 
+                description: event['description'],
+                tickets_total: event['tickets_total'],
+                tickets_available: event['tickets_available'],
                 tickets_price: value
             }
         );
@@ -154,63 +164,63 @@ function Form(props)
             type="text"
             name="event_name"
             _id="event_name"
-            value={person.event_name}
+            value={event.event_name}
             onChange={handleChange} />
         <label htmlFor="location">Location</label>
         <input
             type="text"
             name="location"
             _id="location"
-            value={person.location}
+            value={event.location}
             onChange={handleChange} />
         <label htmlFor="date">Date</label>
         <input
             type="text"
             name="date"
             _id="date"
-            value={person.date}
+            value={event.date}
             onChange={handleChange} />
         <label htmlFor="time_doors">DoorsTime</label>
         <input
             type="text"
             name="time_doors"
             _id="time_doors"
-            value={person.time_doors}
+            value={event.time_doors}
             onChange={handleChange} />
-        <label htmlFor="time_start">ShowTime</label>
+        <label htmlFor="time_show">ShowTime</label>
         <input
             type="text"
-            name="time_start"
-            _id="time_start"
-            value={person.time_start}
+            name="time_show"
+            _id="time_show"
+            value={event.time_show}
             onChange={handleChange} />
         <label htmlFor="description">Description</label>
         <input
             type="text"
             name="description"
             _id="description"
-            value={person.description}
+            value={event.description}
             onChange={handleChange} />
         <label htmlFor="tickets_total">TotalTickets</label>
         <input
             type="text"
             name="tickets_total"
             _id="tickets_total"
-            value={person.tickets_total}
+            value={event.tickets_total}
             onChange={handleChange} />
         <label htmlFor="tickets_available">TicketAvailable</label>
         <input
             type="text"
             name="tickets_available"
             _id="tickets_available"
-            value={person.tickets_available}
+            value={event.tickets_available}
             onChange={handleChange} />
         <label htmlFor="tickets_price">TicketPrice</label>
         <input
             type="text"
             name="tickets_price"
             _id="tickets_price"
-            value={person.tickets_price}
+            value={event.tickets_price}
             onChange={handleChange} />
         <input type="button" value="Submit" onClick={submitForm} />
         </form>
@@ -218,8 +228,8 @@ function Form(props)
 
     function submitForm()
     {
-        props.handleSubmit(person);
-        setPerson({event_name: '', location: '', date: '', time_doors: '', time_start: '', description: '', tickets_total: '', tickets_available: '', tickets_price: ''});
+        props.handleSubmit(event);
+        setEvent({coordinator: 'Default', event_name: '', location: '', date: '', time_doors: '', time_show: '', description: '', tickets_total: '', tickets_available: '', tickets_price: ''});
     }
 }
 
