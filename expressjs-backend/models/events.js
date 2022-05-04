@@ -4,23 +4,23 @@ const TicketSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true,
-        trim: true,
+        trim: true
     },
     buyer_name: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     buyer_email: {
         type: String,
         required: true,
-        trim: true,
+        trim: true
     },
     order_number: {
         type: Number,
         required: true,
-        trim: true,
-    },
+        trim: true
+    }
 });
 
 const EventSchema = new mongoose.Schema(
@@ -28,60 +28,60 @@ const EventSchema = new mongoose.Schema(
         coordinator: {
             type: String,
             required: true,
-            trim: true,
+            trim: true
         },
         event_name: {
             type: String,
             required: true,
-            trim: true,
+            trim: true
         },
         location: {
             type: String,
             required: true,
-            trim: true,
+            trim: true
         },
         date: {
             month: {
-                type: Number,
+                type: Number
             },
             day: {
-                type: Number,
+                type: Number
             },
             year: {
-                type: Number,
-            },
+                type: Number
+            }
         },
         time_doors: {
             type: String,
             required: false,
-            trim: true,
+            trim: true
         },
         time_show: {
             type: String,
             required: true,
-            trim: true,
+            trim: true
         },
         description: {
             type: String,
             required: false,
-            trim: true,
+            trim: true
         },
         tickets_total: {
             type: Number,
             required: true,
-            trim: true,
+            trim: true
         },
         tickets_available: {
             type: Number,
             required: true,
-            trim: true,
+            trim: true
         },
         tickets_price: {
             type: Number,
             required: true,
-            trim: true,
+            trim: true
         },
-        tickets_sold: [TicketSchema],
+        tickets_sold: [TicketSchema]
     },
     { collection: "events_list" }
 );

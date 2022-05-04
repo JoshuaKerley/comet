@@ -42,7 +42,10 @@ app.post("/events", async (req, res) => {
     const event = await services.addEvent(eventToAdd);
 
     if (event != false) {
-        res.status(201).json(event).end();
+        res
+            .status(201)
+            .json(event)
+            .end();
     } else {
         res.status(404).end();
     }
