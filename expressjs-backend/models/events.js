@@ -44,23 +44,17 @@ const EventSchema = new mongoose.Schema(
     date: {
       month: {
         type: Number,
-        required: true,
-        trim: true,
       },
       day: {
         type: Number,
-        required: true,
-        trim: true,
       },
       year: {
-        rype: Number,
-        Required: true,
-        trim: true,
+        type: Number,
       }
     },
     time_doors: {
       type: String,
-      required: fal,
+      required: false,
       trim: true,
     },
     time_show: {
