@@ -18,10 +18,10 @@ mongoose
             "?retryWrites=true&w=majority",
         {
             useNewUrlParser: true,
-            useUnifiedTopology: true,
+            useUnifiedTopology: true
         }
     )
-    .catch((error) => console.log(error));
+    .catch(error => console.log(error));
 
 async function getEvents(userID) {
     if (userID) return await eventModel.find({ user: userID });

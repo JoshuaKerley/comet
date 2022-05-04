@@ -1,3 +1,2 @@
-expressjs-backend/node_modules
-react-frontend/node_modules
+node_modules/
 expressjs-backend/.env
