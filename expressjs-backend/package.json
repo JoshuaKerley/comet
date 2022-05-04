@@ -13,17 +13,10 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
-<<<<<<< HEAD
     "eslint": "^8.14.0",
     "express": "^4.17.3",
     "mongoose": "^6.3.0",
     "prettier": "^2.6.2",
-=======
-    "eslint": "^6.8.0",
-    "express": "^4.17.3",
-    "mongoose": "^6.3.0",
-    "prettier": "^1.9.1",
->>>>>>> ec187ede0c725f2ee558d5b23d0f8bafe0a2c6b0
     "prettier-eslint": "^14.0.2"
   },
   "devDependencies": {
