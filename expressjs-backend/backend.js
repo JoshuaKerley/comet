@@ -51,6 +51,18 @@ app.post("/events", async (req, res) => {
     }
 });
 
+app.get("/users/:username", async (req, res) => {
+    const username = req.params["username"];
+    let result = await services.getUser(username);
+
+    if(result === undefined) {
+        res.status(404).end();
+    }
+    else {
+        res.send(result).status(200).end();
+    }
+});
+
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`);
 });

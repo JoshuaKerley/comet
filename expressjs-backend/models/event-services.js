@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const eventModel = require("./events");
+const userModel = require("./users");
 mongoose.set("debug", true);
 const dotenv = require("dotenv");
 
@@ -52,6 +53,17 @@ async function deleteEventById(id) {
     return await eventModel.findByIdAndDelete(id);
 }
 
+async function getUser(user) {
+    result = await userModel.find({ username: user });
+    if(result.length > 0) {
+        return result[0];
+    }
+    else {
+        return undefined;
+    }
+}
+
 exports.getEvents = getEvents;
 exports.addEvent = addEvent;
 exports.deleteEventById = deleteEventById;
+exports.getUser = getUser;
