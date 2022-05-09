@@ -39,6 +39,7 @@ app.delete("/events/:id", async (req, res) => {
 
 app.post("/events", async (req, res) => {
     const eventToAdd = req.body;
+    console.log(req.body)
     const event = await services.addEvent(eventToAdd);
 
     if (event != false) {
