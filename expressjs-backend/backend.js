@@ -39,14 +39,11 @@ app.delete("/events/:id", async (req, res) => {
 
 app.post("/events", async (req, res) => {
     const eventToAdd = req.body;
-    console.log(req.body)
+    console.log(req.body);
     const event = await services.addEvent(eventToAdd);
 
     if (event != false) {
-        res
-            .status(201)
-            .json(event)
-            .end();
+        res.status(201).json(event).end();
     } else {
         res.status(404).end();
     }
@@ -56,10 +53,9 @@ app.get("/users/:username", async (req, res) => {
     const username = req.params["username"];
     let result = await services.getUser(username);
 
-    if(result === undefined) {
+    if (result === undefined) {
         res.status(404).end();
-    }
-    else {
+    } else {
         res.send(result).status(200).end();
     }
 });
