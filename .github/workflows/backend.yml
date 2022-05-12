@@ -40,3 +40,4 @@ jobs:
         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
         heroku_app_name: "comet-eventright"
         heroku_email: "kerley@calpoly.edu"
+        appdir: "expressjs-backend"
