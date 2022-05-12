@@ -8,7 +8,7 @@ function MyApp() {
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
-        fetchAll().then(result => {
+        fetchAll().then((result) => {
             if (result) setEvents(result);
         });
     }, []);
@@ -22,7 +22,7 @@ function MyApp() {
     );
 
     function removeOneEvent(index) {
-        makeDeleteCall(events[index]).then(result => {
+        makeDeleteCall(events[index]).then((result) => {
             if (result.status === 204) {
                 const updated = events.filter((event, i) => {
                     return i !== index;
@@ -33,7 +33,7 @@ function MyApp() {
     }
 
     function updateList(event) {
-        makePostCall(event).then(result => {
+        makePostCall(event).then((result) => {
             if (result && result.status === 201)
                 setEvents([...events, result.data]);
         });
