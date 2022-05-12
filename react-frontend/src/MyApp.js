@@ -4,6 +4,8 @@ import Form from "./Form";
 import Login from "./Login";
 import axios from "axios";
 
+const backendURL = "https://comet-eventright-backend.herokuapp.com"
+
 function MyApp() {
     const [events, setEvents] = useState([]);
 
@@ -41,7 +43,7 @@ function MyApp() {
 
     async function fetchAll() {
         try {
-            const response = await axios.get("http://localhost:5000/events");
+            const response = await axios.get(backendURL + "/events");
             return response.data;
         } catch (error) {
             //We're not handling errors. Just logging into the console.
@@ -53,7 +55,7 @@ function MyApp() {
     async function makePostCall(event) {
         try {
             const response = await axios.post(
-                "http://localhost:5000/events",
+                backendURL + "/events",
                 event
             );
             return response;
@@ -66,7 +68,7 @@ function MyApp() {
     async function makeDeleteCall(event) {
         try {
             const response = await axios.delete(
-                "http://localhost:5000/events/" + event._id
+                backendURL + "/events/" + event._id
             );
             return response;
         } catch (error) {
@@ -78,7 +80,7 @@ function MyApp() {
     async function getLoginAuth(user, pwd) {
         try {
             const response = await axios.get(
-                "http://localhost:5000/users/" + user
+                backendURL + "/users/" + user
             );
             if (response.data.password === pwd) {
                 console.log("LOGIN SUCCESS");
