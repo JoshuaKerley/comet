@@ -4,7 +4,7 @@ import Form from "./Form";
 import Login from "./Login";
 import axios from "axios";
 
-const backendURL = "https://comet-eventright-backend.herokuapp.com"
+const backendURL = "https://comet-eventright-backend.herokuapp.com";
 
 function MyApp() {
     const [events, setEvents] = useState([]);
@@ -54,10 +54,7 @@ function MyApp() {
 
     async function makePostCall(event) {
         try {
-            const response = await axios.post(
-                backendURL + "/events",
-                event
-            );
+            const response = await axios.post(backendURL + "/events", event);
             return response;
         } catch (error) {
             console.log(error);
@@ -79,9 +76,7 @@ function MyApp() {
 
     async function getLoginAuth(user, pwd) {
         try {
-            const response = await axios.get(
-                backendURL + "/users/" + user
-            );
+            const response = await axios.get(backendURL + "/users/" + user);
             if (response.data.password === pwd) {
                 console.log("LOGIN SUCCESS");
             } else {
