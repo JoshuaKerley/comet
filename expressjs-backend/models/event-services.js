@@ -25,18 +25,9 @@ mongoose
     .catch((error) => console.log(error));
 
 async function getEvents(userID) {
-    if (userID) return await eventModel.find({ user: userID });
+    if (userID) return await eventModel.find({ coordinator: userID });
     else return await eventModel.find();
 }
-
-// async function findUserById(id) {
-//   try {
-//     return await userModel.findById(id);
-//   } catch (error) {
-//     console.log(error);
-//     return undefined;
-//   }
-// }
 
 async function addEvent(event) {
     try {
@@ -53,6 +44,14 @@ async function deleteEventById(id) {
     return await eventModel.findByIdAndDelete(id);
 }
 
+async function updateEventById(id, data) {
+    return await eventModel.findByIdAndUpdate(
+        id,
+        { $set: data },
+        { new: true }
+    );
+}
+
 async function getUser(user) {
     result = await userModel.find({ username: user });
     if (result.length > 0) {
@@ -65,4 +64,5 @@ async function getUser(user) {
 exports.getEvents = getEvents;
 exports.addEvent = addEvent;
 exports.deleteEventById = deleteEventById;
+exports.updateEventById = updateEventById;
 exports.getUser = getUser;

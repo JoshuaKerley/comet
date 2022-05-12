@@ -21,19 +21,26 @@ app.get("/events", async (req, res) => {
 app.get("/events/:user", async (req, res) => {
     const user = req.params["user"]; //or req.params.id
     let result = await services.getEvents(user);
-    if (result === undefined || result.length == 0)
-        res.status(404).send("Resource not found.");
-    else {
-        res.send(result);
-    }
+    res.send(result).end();
 });
 
 app.delete("/events/:id", async (req, res) => {
     const id = req.params["id"]; //or req.params.id
     let result = await services.deleteEventById(id);
-    if (result === undefined) res.status(404).send("Resource not found.");
+    if (result === undefined) res.status(404).send("Event not found.");
     else {
         res.status(204).end();
+    }
+});
+
+app.patch("/events/:id", async (req, res) => {
+    const id = req.params["id"];
+    const data = req.body;
+    let result = await services.updateEventById(id, data);
+    if (result === undefined) {
+        res.status(404).send("Event not found.").end();
+    } else {
+        res.send(result).status(204).end();
     }
 });
 
@@ -54,7 +61,7 @@ app.get("/users/:username", async (req, res) => {
     let result = await services.getUser(username);
 
     if (result === undefined) {
-        res.status(404).end();
+        res.status(404).send("User not found.").end();
     } else {
         res.send(result).status(200).end();
     }
