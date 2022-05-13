@@ -17,7 +17,7 @@ const TicketSchema = new mongoose.Schema({
         trim: true,
     },
     order_number: {
-        type: Number,
+        type: String,
         required: true,
         trim: true,
     },

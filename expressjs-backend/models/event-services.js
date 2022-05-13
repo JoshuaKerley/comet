@@ -52,6 +52,41 @@ async function updateEventById(id, data) {
     );
 }
 
+async function addTickets(event_id, num_tickets, ticket) {
+    const event = await eventModel.findById(event_id);
+    let tickets = event.tickets_sold,
+        available = event.tickets_available;
+
+    if (num_tickets > available) {
+        throw new Error("Not enough tickets available.");
+    }
+
+    ticket.order_number = Date.now() + "" + Math.floor(Math.random() * 1000);
+    console.log(typeof ticket.order_number);
+
+    for (let i = 0; i < num_tickets; i++) {
+        let new_ticket = Object.assign({}, ticket);
+        do {
+            new_ticket.id = Math.floor(100000 + Math.random() * 900000);
+        } while (tickets.some((e) => e.id === new_ticket.id));
+
+        tickets.push(new_ticket);
+    }
+
+    result = await updateEventById(event_id, { tickets_sold: tickets });
+
+    if (result === undefined) throw new Error("Error adding tickets.");
+
+    await updateEventById(event_id, {
+        tickets_available: available - num_tickets,
+    });
+
+    console.log("TICKETS PURCHASED - OID: " + ticket.order_number);
+    return (filtered = tickets.filter(
+        (t) => t.order_number === ticket.order_number
+    ));
+}
+
 async function getUser(user) {
     result = await userModel.find({ username: user });
     if (result.length > 0) {
@@ -65,4 +100,5 @@ exports.getEvents = getEvents;
 exports.addEvent = addEvent;
 exports.deleteEventById = deleteEventById;
 exports.updateEventById = updateEventById;
+exports.addTickets = addTickets;
 exports.getUser = getUser;
