@@ -44,23 +44,18 @@ app.patch("/events/:id", async (req, res) => {
     }
 });
 
-app.post("/events/:id/:number", async (req, res) => {
-    const event_id = req.params["id"];
-    const num_tickets = req.params["number"];
-    const ticket = req.body;
-
-    let added;
+app.post("/order", async (req, res) => {
+    const orderDetails = req.body;
+    let orderId;
 
     try {
-        added = await services.addTickets(event_id, num_tickets, ticket);
+        orderId = await services.purchaseTickets(orderDetails);
     } catch (err) {
-        if (err.message.indexOf("Cast to ObjectId failed") !== -1)
-            res.status(404).send("Event not found.").end();
-        else res.status(404).send(err.message).end();
+        res.status(404).send(err.message).end();
         return;
     }
 
-    res.status(201).json(added).end();
+    res.send(orderId).status(201).end();
 });
 
 app.post("/events", async (req, res) => {

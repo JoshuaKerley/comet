@@ -29,6 +29,10 @@ async function getEvents(userID) {
     else return await eventModel.find();
 }
 
+async function getEventById(id) {
+    return await eventModel.findById(id);
+}
+
 async function addEvent(event) {
     try {
         const eventToAdd = new eventModel(event);
@@ -52,20 +56,33 @@ async function updateEventById(id, data) {
     );
 }
 
-async function addTickets(event_id, num_tickets, ticket) {
-    const event = await eventModel.findById(event_id);
+async function validateCart(cart) {
+    for (let event_id in cart) {
+        let event;
+        try {
+            event = await getEventById(event_id);
+        } catch (err) {
+            if (err.message.indexOf("Cast to ObjectId failed") !== -1)
+                throw new Error("Invalid event(s) specified.");
+        }
+
+        if (event === null) throw new Error("Invalid event(s) specified.");
+        if (event.tickets_available < cart[event_id])
+            throw new Error("Not enough tickets available.");
+    }
+}
+
+async function addTicketsToEvent(event_id, quantity, name, email, orderId) {
+    const event = await getEventById(event_id);
     let tickets = event.tickets_sold,
         available = event.tickets_available;
 
-    if (num_tickets > available) {
-        throw new Error("Not enough tickets available.");
-    }
-
-    ticket.order_number = Date.now() + "" + Math.floor(Math.random() * 1000);
-    console.log(typeof ticket.order_number);
-
-    for (let i = 0; i < num_tickets; i++) {
-        let new_ticket = Object.assign({}, ticket);
+    for (let i = 0; i < quantity; i++) {
+        let new_ticket = {
+            buyer_name: name,
+            buyer_email: email,
+            order_number: orderId,
+        };
         do {
             new_ticket.id = Math.floor(100000 + Math.random() * 900000);
         } while (tickets.some((e) => e.id === new_ticket.id));
@@ -75,16 +92,30 @@ async function addTickets(event_id, num_tickets, ticket) {
 
     result = await updateEventById(event_id, { tickets_sold: tickets });
 
-    if (result === undefined) throw new Error("Error adding tickets.");
-
     await updateEventById(event_id, {
-        tickets_available: available - num_tickets,
+        tickets_available: available - quantity,
     });
+}
 
-    console.log("TICKETS PURCHASED - OID: " + ticket.order_number);
-    return (filtered = tickets.filter(
-        (t) => t.order_number === ticket.order_number
-    ));
+async function purchaseTickets(orderDetails) {
+    let cart = orderDetails.cart;
+    await validateCart(cart);
+
+    let orderId = Date.now() + "" + Math.floor(Math.random() * 1000);
+
+    for (let eventId in cart) {
+        addTicketsToEvent(
+            eventId,
+            cart[eventId],
+            orderDetails.name,
+            orderDetails.email,
+            orderId
+        );
+    }
+
+    console.log("TICKETS PURCHASED - OID: " + orderId);
+
+    return orderId;
 }
 
 async function getUser(user) {
@@ -97,8 +128,9 @@ async function getUser(user) {
 }
 
 exports.getEvents = getEvents;
+exports.getEventById = getEventById;
 exports.addEvent = addEvent;
 exports.deleteEventById = deleteEventById;
 exports.updateEventById = updateEventById;
-exports.addTickets = addTickets;
+exports.purchaseTickets = purchaseTickets;
 exports.getUser = getUser;
