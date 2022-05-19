@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const services = require("./models/event-services");
+const emailService = require("./email-services");
 const app = express();
 const port = 5000;
 
@@ -54,6 +55,8 @@ app.post("/order", async (req, res) => {
         res.status(404).send(err.message).end();
         return;
     }
+
+    emailService.send(orderDetails, orderId);
 
     res.send(orderId).status(201).end();
 });

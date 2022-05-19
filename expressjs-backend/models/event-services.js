@@ -57,6 +57,8 @@ async function updateEventById(id, data) {
 }
 
 async function validateCart(cart) {
+    if (Object.keys(cart).length === 0) throw new Error("Cart is empty.");
+
     for (let event_id in cart) {
         let event;
         try {
@@ -104,7 +106,7 @@ async function purchaseTickets(orderDetails) {
     let orderId = Date.now() + "" + Math.floor(Math.random() * 1000);
 
     for (let eventId in cart) {
-        addTicketsToEvent(
+        await addTicketsToEvent(
             eventId,
             cart[eventId],
             orderDetails.name,

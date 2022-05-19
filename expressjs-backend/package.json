@@ -15,7 +15,9 @@
         "dotenv": "^16.0.0",
         "eslint": "^8.14.0",
         "express": "^4.17.3",
+        "handlebars": "^4.7.7",
         "mongoose": "^6.3.0",
+        "nodejs-nodemailer-outlook": "^1.2.4",
         "prettier": "^2.6.2",
         "prettier-eslint": "^14.0.2"
     },
