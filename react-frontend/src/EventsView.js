@@ -11,14 +11,16 @@ function EventsView() {
 
     useEffect(() => {
         console.log(isAuthenticated().id);
-        fetchMyEvents(isAuthenticated().id).then((result) => {
-            console.log(result);
-            if (result) {
-                setEvents(result);
-            }
-        }).then((data) => {
-            setLoaded(true);
-        });
+        fetchMyEvents(isAuthenticated().id)
+            .then((result) => {
+                console.log(result);
+                if (result) {
+                    setEvents(result);
+                }
+            })
+            .then((data) => {
+                setLoaded(true);
+            });
     }, []);
 
     async function fetchMyEvents(id) {
@@ -65,8 +67,7 @@ function EventsView() {
             <Typography variant="h2" align="center">
                 My Events
             </Typography>
-            {
-                loaded && events.length > 0 ?
+            {loaded && events.length > 0 ? (
                 events.map((event, i) => {
                     return (
                         <Event
@@ -76,12 +77,12 @@ function EventsView() {
                             removeEvent={removeEvent}
                         />
                     );
-                }) : loaded && events.length == 0 ?
+                })
+            ) : loaded && events.length == 0 ? (
                 <Typography variant="h5" align="center" sx={{ mt: 5 }}>
                     You currently have no events
-                </Typography> :
-                null
-            }
+                </Typography>
+            ) : null}
         </Container>
     );
 }

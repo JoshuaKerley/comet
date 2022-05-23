@@ -106,31 +106,31 @@ const Navbar = () => {
                             }}>
                             {isAuthenticated()
                                 ? authenticated_pages.map((page, i) => (
-                                    <MenuItem
-                                        key={page}
-                                        onClick={() =>
-                                            handleCloseNavMenu(
-                                                authenticated_routes[i]
-                                            )
-                                        }>
-                                        <Typography textAlign="center">
-                                            {page}
-                                        </Typography>
-                                    </MenuItem>
-                                ))
+                                      <MenuItem
+                                          key={page}
+                                          onClick={() =>
+                                              handleCloseNavMenu(
+                                                  authenticated_routes[i]
+                                              )
+                                          }>
+                                          <Typography textAlign="center">
+                                              {page}
+                                          </Typography>
+                                      </MenuItem>
+                                  ))
                                 : not_authenticated_pages.map((page, i) => (
-                                    <MenuItem
-                                        key={page}
-                                        onClick={() =>
-                                            handleCloseNavMenu(
-                                                not_authenticated_routes[i]
-                                            )
-                                        }>
-                                        <Typography textAlign="center">
-                                            {page}
-                                        </Typography>
-                                    </MenuItem>
-                                ))}
+                                      <MenuItem
+                                          key={page}
+                                          onClick={() =>
+                                              handleCloseNavMenu(
+                                                  not_authenticated_routes[i]
+                                              )
+                                          }>
+                                          <Typography textAlign="center">
+                                              {page}
+                                          </Typography>
+                                      </MenuItem>
+                                  ))}
                         </Menu>
                     </Box>
                     <Typography
@@ -158,31 +158,31 @@ const Navbar = () => {
                         }}>
                         {isAuthenticated()
                             ? authenticated_pages.map((page, i) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={() =>
-                                        handleCloseNavMenu(
-                                            authenticated_routes[i]
-                                        )
-                                    }>
-                                    <Typography textAlign="center">
-                                        {page}
-                                    </Typography>
-                                </MenuItem>
+                                  <MenuItem
+                                      key={page}
+                                      onClick={() =>
+                                          handleCloseNavMenu(
+                                              authenticated_routes[i]
+                                          )
+                                      }>
+                                      <Typography textAlign="center">
+                                          {page}
+                                      </Typography>
+                                  </MenuItem>
                               ))
                             : not_authenticated_pages.map((page, i) => (
-                                <MenuItem
-                                    key={page}
-                                    onClick={() =>
-                                        handleCloseNavMenu(
-                                        not_authenticated_routes[i]
-                                        )
-                                    }>
-                                    <Typography textAlign="center">
-                                        {page}
-                                    </Typography>
-                                </MenuItem>
-                            ))}
+                                  <MenuItem
+                                      key={page}
+                                      onClick={() =>
+                                          handleCloseNavMenu(
+                                              not_authenticated_routes[i]
+                                          )
+                                      }>
+                                      <Typography textAlign="center">
+                                          {page}
+                                      </Typography>
+                                  </MenuItem>
+                              ))}
                     </Box>
                 </Toolbar>
             </Container>
