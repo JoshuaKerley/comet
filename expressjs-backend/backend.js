@@ -4,6 +4,7 @@ const services = require("./models/event-services");
 const emailService = require("./email-services");
 const app = express();
 const port = 5000;
+require('dotenv').config();
 
 app.use(cors());
 app.use(express.json());
@@ -19,9 +20,16 @@ app.get("/events", async (req, res) => {
 });
 
 //GETS EVENTS CREATED BY SPECIFIC USER (EVENT COORDINATOR)
-app.get("/events/:user", async (req, res) => {
+app.get("/events/user/:user", async (req, res) => {
     const user = req.params["user"]; //or req.params.id
     let result = await services.getEvents(user);
+    res.send(result).end();
+});
+
+app.get("/events/id/:id", async (req, res) => {
+    const id = req.params["id"]; //or req.params.id
+    let result = await services.getEventById(id);
+    console.log('result', result)
     res.send(result).end();
 });
 
@@ -76,7 +84,6 @@ app.post("/events", async (req, res) => {
 app.get("/users/:username", async (req, res) => {
     const username = req.params["username"];
     let result = await services.getUser(username);
-
     if (result === undefined) {
         res.status(404).send("User not found.").end();
     } else {

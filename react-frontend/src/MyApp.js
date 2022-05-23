@@ -1,94 +1,27 @@
 import React, { useState, useEffect } from "react";
-import Table from "./Table";
-import Form from "./Form";
+import Navbar from "./Navbar";
+import EventsView from "./EventsView";
+import EventsAdd from "./EventsAdd";
+import EventsEdit from "./EventsEdit";
 import Login from "./Login";
 import axios from "axios";
+import { Routes, Route } from 'react-router-dom';
 
-const backendURL = "https://comet-eventright-backend.herokuapp.com";
+// const backendURL = "https://comet-eventright-backend.herokuapp.com";
 
 function MyApp() {
-    const [events, setEvents] = useState([]);
-
-    useEffect(() => {
-        fetchAll().then((result) => {
-            if (result) setEvents(result);
-        });
-    }, []);
-
     return (
         <div className="container">
-            <Login getLoginAuth={getLoginAuth} />
-            <Table eventData={events} removeEvent={removeOneEvent} />
-            <Form handleSubmit={updateList} />
+            <Navbar />
+            <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/seller/events/view" element={<EventsView />} />
+                <Route path="/seller/events/add" element={<EventsAdd /> } />
+                <Route path="/seller/events/edit/:id" element={<EventsEdit /> } />
+                {/* <Table eventData={events} removeEvent={removeOneEvent} /> */}
+            </Routes>
         </div>
     );
-
-    function removeOneEvent(index) {
-        makeDeleteCall(events[index]).then((result) => {
-            if (result.status === 204) {
-                const updated = events.filter((event, i) => {
-                    return i !== index;
-                });
-                setEvents(updated);
-            }
-        });
-    }
-
-    function updateList(event) {
-        makePostCall(event).then((result) => {
-            if (result && result.status === 201)
-                setEvents([...events, result.data]);
-        });
-    }
-
-    async function fetchAll() {
-        try {
-            const response = await axios.get(backendURL + "/events");
-            return response.data;
-        } catch (error) {
-            //We're not handling errors. Just logging into the console.
-            console.log(error);
-            return false;
-        }
-    }
-
-    async function makePostCall(event) {
-        try {
-            const response = await axios.post(backendURL + "/events", event);
-            return response;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
-    }
-
-    async function makeDeleteCall(event) {
-        try {
-            const response = await axios.delete(
-                backendURL + "/events/" + event._id
-            );
-            return response;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
-    }
-
-    async function getLoginAuth(user, pwd) {
-        try {
-            const response = await axios.get(backendURL + "/users/" + user);
-            if (response.data.password === pwd) {
-                console.log("LOGIN SUCCESS");
-            } else {
-                console.log("FAILED LOGIN");
-            }
-            return response.data;
-        } catch (error) {
-            //We're not handling errors. Just logging into the console.
-            console.log(error);
-            return false;
-        }
-    }
 }
 
 export default MyApp;
