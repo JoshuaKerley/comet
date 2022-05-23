@@ -7,10 +7,9 @@ import { Container, Typography } from "@mui/material";
 
 function EventsView() {
     const [events, setEvents] = useState([]);
-    const { id, username } = isAuthenticated();     // checks if current user is authenticated and returns user info if so
 
     useEffect(() => {
-        fetchMyEvents(id).then((result) => {
+        fetchMyEvents(isAuthenticated().id).then((result) => {
             if (result) {
                 setEvents(result);
             }
