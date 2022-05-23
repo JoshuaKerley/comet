@@ -4,7 +4,7 @@ const services = require("./models/event-services");
 const emailService = require("./email-services");
 const app = express();
 const port = 5000;
-require('dotenv').config();
+require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +29,7 @@ app.get("/events/user/:user", async (req, res) => {
 app.get("/events/id/:id", async (req, res) => {
     const id = req.params["id"]; //or req.params.id
     let result = await services.getEventById(id);
-    console.log('result', result)
+    console.log("result", result);
     res.send(result).end();
 });
 

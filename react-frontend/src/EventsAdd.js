@@ -49,7 +49,10 @@ function EventsAdd() {
 
     async function addEvent(event) {
         try {
-            const response = await axios.post(process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/events", event);
+            const response = await axios.post(
+                process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/events",
+                event
+            );
             return response;
         } catch (error) {
             console.log(error);
@@ -71,13 +74,15 @@ function EventsAdd() {
             tickets_available: "",
             tickets_price: "",
         });
-        navigate('/seller/events/view');
+        navigate("/seller/events/view");
     }
 
     return (
         <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
             <Paper elevation={5} sx={{ p: 5 }}>
-                <Typography variant="h2" align="center">Add Event</Typography>
+                <Typography variant="h2" align="center">
+                    Add Event
+                </Typography>
                 <Box
                     sx={{
                         mt: 5,
@@ -250,7 +255,10 @@ function EventsAdd() {
                     />
                 </Box>
                 <Box>
-                    <Button variant="contained" sx={{ mt: 2 }} onClick={submitForm}>
+                    <Button
+                        variant="contained"
+                        sx={{ mt: 2 }}
+                        onClick={submitForm}>
                         Publish Event
                     </Button>
                 </Box>

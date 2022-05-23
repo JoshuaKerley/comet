@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import {
     Container,
     Box,
@@ -38,14 +38,24 @@ function EventsEdit() {
     useEffect(() => {
         fetchEventById(id).then((result) => {
             if (result) {
-                setEvent({ ...event, ...result, date: new Date(result.date), time_doors: new Date(result.time_doors), time_show: new Date(result.time_show) });
+                setEvent({
+                    ...event,
+                    ...result,
+                    date: new Date(result.date),
+                    time_doors: new Date(result.time_doors),
+                    time_show: new Date(result.time_show),
+                });
             }
-        })
+        });
     }, []);
 
     async function fetchEventById(id) {
         try {
-            const response = await axios.get(process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/events/id/" + id);
+            const response = await axios.get(
+                process.env.REACT_APP_BACKEND_URL_PRODUCTION +
+                    "/events/id/" +
+                    id
+            );
             return response.data;
         } catch (error) {
             //We're not handling errors. Just logging into the console.
@@ -72,7 +82,7 @@ function EventsEdit() {
             const response = await axios.patch(
                 process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/events/" + id,
                 event
-                );
+            );
             return response;
         } catch (error) {
             console.log(error);
@@ -94,13 +104,15 @@ function EventsEdit() {
             tickets_available: "",
             tickets_price: "",
         });
-        navigate('/seller/events/view');
+        navigate("/seller/events/view");
     }
 
     return (
         <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
             <Paper elevation={5} sx={{ p: 5 }}>
-                <Typography variant="h2" align="center">Edit Event</Typography>
+                <Typography variant="h2" align="center">
+                    Edit Event
+                </Typography>
                 <Box
                     sx={{
                         mt: 5,
@@ -158,8 +170,9 @@ function EventsEdit() {
                                     label="Doors Time"
                                     format="YYYY-MM-DD hh:mm A"
                                     minTime={
-                                        event.date && event.date.toDateString() ===
-                                        new Date().toDateString()
+                                        event.date &&
+                                        event.date.toDateString() ===
+                                            new Date().toDateString()
                                             ? new Date()
                                             : null
                                     }
@@ -180,8 +193,9 @@ function EventsEdit() {
                                     label="Show Time"
                                     format="YYYY-MM-DD hh:mm A"
                                     minTime={
-                                        event.date && event.date.toDateString() ===
-                                        new Date().toDateString()
+                                        event.date &&
+                                        event.date.toDateString() ===
+                                            new Date().toDateString()
                                             ? new Date()
                                             : null
                                     }
@@ -273,7 +287,10 @@ function EventsEdit() {
                     />
                 </Box>
                 <Box>
-                    <Button variant="contained" sx={{ mt: 2 }} onClick={submitForm}>
+                    <Button
+                        variant="contained"
+                        sx={{ mt: 2 }}
+                        onClick={submitForm}>
                         Confirm
                     </Button>
                 </Box>

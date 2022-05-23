@@ -5,7 +5,7 @@ import EventsAdd from "./EventsAdd";
 import EventsEdit from "./EventsEdit";
 import Login from "./Login";
 import axios from "axios";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 // const backendURL = "https://comet-eventright-backend.herokuapp.com";
 
@@ -16,8 +16,11 @@ function MyApp() {
             <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/seller/events/view" element={<EventsView />} />
-                <Route path="/seller/events/add" element={<EventsAdd /> } />
-                <Route path="/seller/events/edit/:id" element={<EventsEdit /> } />
+                <Route path="/seller/events/add" element={<EventsAdd />} />
+                <Route
+                    path="/seller/events/edit/:id"
+                    element={<EventsEdit />}
+                />
                 {/* <Table eventData={events} removeEvent={removeOneEvent} /> */}
             </Routes>
         </div>
