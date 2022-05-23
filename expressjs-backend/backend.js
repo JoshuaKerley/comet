@@ -29,7 +29,6 @@ app.get("/events/user/:user", async (req, res) => {
 app.get("/events/id/:id", async (req, res) => {
     const id = req.params["id"]; //or req.params.id
     let result = await services.getEventById(id);
-    console.log("result", result);
     res.send(result).end();
 });
 

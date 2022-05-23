@@ -60,8 +60,8 @@ function EventsAdd() {
         }
     }
 
-    function submitForm() {
-        addEvent(event);
+    async function submitForm() {
+        const result = await addEvent(event);
         setEvent({
             coordinator: "Default",
             event_name: "",
