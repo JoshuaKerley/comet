@@ -20,10 +20,10 @@ const authenticated_pages = ["New Event", "My Events", "Log Out"];
 const authenticated_routes = [
     "/seller/events/add",
     "/seller/events/view",
-    "/login",
+    "/seller/login",
 ];
 const not_authenticated_pages = ["Log In"];
-const not_authenticated_routes = ["/login"];
+const not_authenticated_routes = ["/seller/login"];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
@@ -41,7 +41,7 @@ const Navbar = () => {
     const handleCloseNavMenu = (path) => {
         setAnchorElNav(null);
 
-        if (path == "/login") {
+        if (path == "/seller/login") {
             localStorage.removeItem("user");
         }
 
@@ -53,7 +53,7 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="fixed">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <Typography
@@ -172,15 +172,15 @@ const Navbar = () => {
                               ))
                             : not_authenticated_pages.map((page, i) => (
                                   <MenuItem
-                                      key={page}
-                                      onClick={() =>
-                                          handleCloseNavMenu(
-                                              not_authenticated_routes[i]
-                                          )
-                                      }>
-                                      <Typography textAlign="center">
-                                          {page}
-                                      </Typography>
+                                        key={page}
+                                        onClick={() =>
+                                            handleCloseNavMenu(
+                                            not_authenticated_routes[i]
+                                            )
+                                        }>
+                                        <Typography textAlign="center">
+                                            {page}
+                                        </Typography>
                                   </MenuItem>
                               ))}
                     </Box>

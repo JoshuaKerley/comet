@@ -14,7 +14,7 @@ function MyApp() {
         <div className="container">
             <Navbar />
             <Routes>
-                <Route path="/login" element={<Login />} />
+                <Route path="/seller/login" element={<Login />} />
                 <Route path="/seller/events/view" element={<EventsView />} />
                 <Route path="/seller/events/add" element={<EventsAdd />} />
                 <Route

@@ -108,7 +108,7 @@ function EventsEdit() {
     }
 
     return (
-        <Container maxWidth="xl" sx={{ mt: 5, mb: 5 }}>
+        <Container maxWidth="xl" sx={{ mt: 15, mb: 5 }}>
             <Paper elevation={5} sx={{ p: 5 }}>
                 <Typography variant="h2" align="center">
                     Edit Event
