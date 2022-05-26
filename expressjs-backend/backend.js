@@ -57,7 +57,7 @@ app.post("/order", async (req, res) => {
     let orderId;
 
     try {
-        orderId = await services.purchaseTickets(orderDetails);
+        orderId = await purchaseTickets(orderDetails);
     } catch (err) {
         res.status(404).send(err.message).end();
         return;
@@ -93,3 +93,66 @@ app.get("/users/:username", async (req, res) => {
 app.listen(process.env.PORT || port, () => {
     console.log("REST API is listening.");
 });
+
+async function validateCart(cart) {
+    if (Object.keys(cart).length === 0) throw new Error("Cart is empty.");
+
+    for (let event_id in cart) {
+        let event;
+        try {
+            event = await services.getEventById(event_id);
+        } catch (err) {
+            if (err.message.indexOf("Cast to ObjectId failed") !== -1)
+                throw new Error("Invalid event(s) specified.");
+        }
+
+        if (event === null) throw new Error("Invalid event(s) specified.");
+        if (event.tickets_available < cart[event_id])
+            throw new Error("Not enough tickets available.");
+    }
+}
+
+async function addTicketsToEvent(event_id, quantity, name, email, orderId) {
+    const event = await services.getEventById(event_id);
+    let tickets = event.tickets_sold,
+        available = event.tickets_available;
+
+    for (let i = 0; i < quantity; i++) {
+        let new_ticket = {
+            buyer_name: name,
+            buyer_email: email,
+            order_number: orderId,
+        };
+        do {
+            new_ticket.id = Math.floor(100000 + Math.random() * 900000);
+        } while (tickets.some((e) => e.id === new_ticket.id));
+
+        tickets.push(new_ticket);
+    }
+
+    result = await services.updateEventById(event_id, {
+        tickets_sold: tickets,
+        tickets_available: available - quantity,
+    });
+}
+
+async function purchaseTickets(orderDetails) {
+    let cart = orderDetails.cart;
+    await validateCart(cart);
+
+    let orderId = Date.now() + "" + Math.floor(Math.random() * 1000);
+
+    for (let eventId in cart) {
+        await addTicketsToEvent(
+            eventId,
+            cart[eventId],
+            orderDetails.name,
+            orderDetails.email,
+            orderId
+        );
+    }
+
+    console.log("TICKETS PURCHASED - OID: " + orderId);
+
+    return orderId;
+}
