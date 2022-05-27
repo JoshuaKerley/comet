@@ -21,6 +21,8 @@ function MyApp() {
                     path="/seller/events/edit/:id"
                     element={<EventsEdit />}
                 />
+                <Route path="/buyer/select" element={<SelectSeller />} />
+                <Route path="/buyer/events/view" element={<BuyerView />} />
                 {/* <Table eventData={events} removeEvent={removeOneEvent} /> */}
             </Routes>
         </div>
