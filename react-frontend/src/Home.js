@@ -1,17 +1,18 @@
-import React from "react";
 import { useState, useEffect } from "react";
+import { Container, Box, Paper, Button, Typography } from "@mui/material";
 import axios from "axios";
 import Event from "./Event";
-import { isAuthenticated } from "./auth";
-import { Container, Typography } from "@mui/material";
+import TicketModal from "./TicketModal";
 
-function EventsView() {
+function Home() {
     const [events, setEvents] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [selectedEvent, setSelectedEvent] = useState({});
+    const [cart, setCart] = useState({});
 
     useEffect(() => {
-        console.log(isAuthenticated().id);
-        fetchMyEvents(isAuthenticated().id)
+        fetchEvents()
             .then((result) => {
                 console.log(result);
                 if (result) {
@@ -23,12 +24,11 @@ function EventsView() {
             });
     }, []);
 
-    async function fetchMyEvents(id) {
+    async function fetchEvents() {
         try {
             const response = await axios.get(
                 process.env.REACT_APP_BACKEND_URL_PRODUCTION +
-                    "/events/user/" +
-                    id
+                    "/events"
             );
             return response.data;
         } catch (error) {
@@ -38,34 +38,28 @@ function EventsView() {
         }
     }
 
-    async function makeDeleteCall(event) {
-        try {
-            const response = await axios.delete(
-                process.env.REACT_APP_BACKEND_URL_PRODUCTION +
-                    "/events/" +
-                    event._id
-            );
-            return response;
-        } catch (error) {
-            console.log(error);
-            return false;
+    function handleCart(id, num_tickets) {
+        console.log("cart", cart)
+        if (num_tickets > 0) {
+            setCart({ ...cart, [id]: num_tickets })
+        } else if (id in cart) {
+            setCart((prev) => {
+                delete cart[id];
+                return cart;
+            })
         }
     }
 
-    async function removeEvent(index) {
-        let result = await makeDeleteCall(events[index]);
-        if (result.status === 204) {
-            const updated = events.filter((event, i) => {
-                return i !== index;
-            });
-            setEvents(updated);
-        }
+    function openModal(index) {
+        console.log(index)
+        setSelectedEvent(events[index]);
+        setOpen(true);
     }
 
     return (
         <Container maxWidth={"xl"} sx={{ mt: 15, pb: 5 }}>
             <Typography variant="h2" align="center">
-                My Events
+                Buy Tickets!
             </Typography>
             {loaded && events.length > 0 ? (
                 events.map((event, i) => {
@@ -74,18 +68,23 @@ function EventsView() {
                             key={i}
                             index={i}
                             eventData={event}
-                            removeEvent={removeEvent}
-                            viewTickets={null}
+                            removeEvent={null}
+                            viewTickets={openModal}
                         />
                     );
                 })
             ) : loaded && events.length == 0 ? (
                 <Typography variant="h5" align="center" sx={{ mt: 5 }}>
-                    You currently have no events
+                    No events available yet
                 </Typography>
             ) : null}
+
+            { loaded && selectedEvent ? (
+                <TicketModal eventData={selectedEvent} cart={cart} handleCart={handleCart} open={open} setOpen={setOpen}/>
+            ) : null
+            }
         </Container>
     );
 }
 
-export default EventsView;
+export default Home;
