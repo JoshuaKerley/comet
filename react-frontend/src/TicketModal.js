@@ -16,11 +16,11 @@ const monthNames = [
     "December",
 ];
 
-function TicketModal({ eventData, cart, handleCart, open, setOpen }) {
-    console.log("initial", eventData._id in cart ? cart[eventData._id] : 0);
-    const [numTickets, setNumTickets] = useState(
-        eventData._id in cart ? cart[eventData._id] : 0
-    );
+function TicketModal({ eventData, cart, handleCart, open, setOpen, numTickets, setNumTickets }) {
+    // console.log("initial", eventData._id in cart ? cart[eventData._id] : 0);
+    // const [numTickets, setNumTickets] = useState(
+    //     eventData._id in cart ? cart[eventData._id] : 0
+    // );
     const {
         _id,
         date,

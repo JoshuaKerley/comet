@@ -10,6 +10,7 @@ function Home() {
     const [open, setOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState({});
     const [cart, setCart] = useState({});
+    const [numTickets, setNumTickets] = useState(0);
 
     useEffect(() => {
         fetchEvents()
@@ -52,6 +53,7 @@ function Home() {
     function openModal(index) {
         console.log(index);
         setSelectedEvent(events[index]);
+        setNumTickets(events[index]._id in cart ? cart[events[index]._id] : 0);
         setOpen(true);
     }
 
@@ -64,7 +66,7 @@ function Home() {
                 events.map((event, i) => {
                     return (
                         <Event
-                            key={i}
+                            key={event._id}
                             index={i}
                             eventData={event}
                             removeEvent={null}
@@ -85,6 +87,8 @@ function Home() {
                     handleCart={handleCart}
                     open={open}
                     setOpen={setOpen}
+                    numTickets={numTickets}
+                    setNumTickets={setNumTickets}
                 />
             ) : null}
         </Container>
