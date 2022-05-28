@@ -1,8 +1,7 @@
 import { Box, Paper, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function Event({ history, index, eventData, removeEvent }) {
-    console.log(eventData);
+function Event({ viewTickets, index, eventData, removeEvent }) {
     const {
         _id,
         date,
@@ -57,7 +56,7 @@ function Event({ history, index, eventData, removeEvent }) {
                 {renderField("Description", description)}
                 {renderField("Total Tickets", tickets_total)}
                 {renderField("Available Tickets", tickets_available)}
-                {renderField("Ticket Price", tickets_price)}
+                {renderField("Ticket Price", "$ " + tickets_price)}
             </Box>
             <Box
                 sx={{
@@ -66,18 +65,33 @@ function Event({ history, index, eventData, removeEvent }) {
                     flexDirection: "row",
                     justifyContent: "left",
                 }}>
-                <Button
-                    variant="contained"
-                    sx={{ mt: 2 }}
-                    onClick={() => navigate(`/seller/events/edit/${_id}`)}>
-                    Edit Event
-                </Button>
-                <Button
-                    variant="contained"
-                    sx={{ mt: 2, ml: 4 }}
-                    onClick={() => removeEvent(index)}>
-                    Delete Event
-                </Button>
+                {viewTickets ? (
+                    <Button
+                        variant="contained"
+                        sx={{ mt: 2 }}
+                        onClick={() => viewTickets(index)}>
+                        Select Tickets
+                    </Button>
+                ) : (
+                    <Box>
+                        <Button
+                            variant="contained"
+                            sx={{ mt: 2 }}
+                            onClick={() =>
+                                navigate(`/seller/events/edit/${_id}`)
+                            }>
+                            Edit Event
+                        </Button>
+                        <Button
+                            variant="contained"
+                            sx={{ mt: 2, ml: 4 }}
+                            onClick={() =>
+                                removeEvent ? removeEvent(index) : null
+                            }>
+                            Delete Event
+                        </Button>
+                    </Box>
+                )}
             </Box>
         </Paper>
     );

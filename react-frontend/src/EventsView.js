@@ -71,10 +71,11 @@ function EventsView() {
                 events.map((event, i) => {
                     return (
                         <Event
-                            key={i}
+                            key={event._id}
                             index={i}
                             eventData={event}
                             removeEvent={removeEvent}
+                            viewTickets={null}
                         />
                     );
                 })
