@@ -35,8 +35,7 @@ function Event({ viewTickets, index, eventData, removeEvent }) {
     return (
         <Paper
             elevation={5}
-            sx={{ mt: 5, p: 5, display: "flex", flexDirection: "column" }}
-        >
+            sx={{ mt: 5, p: 5, display: "flex", flexDirection: "column" }}>
             <Box
                 sx={{
                     display: "flex",
@@ -66,7 +65,7 @@ function Event({ viewTickets, index, eventData, removeEvent }) {
                     flexDirection: "row",
                     justifyContent: "left",
                 }}>
-                { viewTickets ? (
+                {viewTickets ? (
                     <Button
                         variant="contained"
                         sx={{ mt: 2 }}
@@ -78,13 +77,17 @@ function Event({ viewTickets, index, eventData, removeEvent }) {
                         <Button
                             variant="contained"
                             sx={{ mt: 2 }}
-                            onClick={() => navigate(`/seller/events/edit/${_id}`)}>
+                            onClick={() =>
+                                navigate(`/seller/events/edit/${_id}`)
+                            }>
                             Edit Event
                         </Button>
                         <Button
                             variant="contained"
                             sx={{ mt: 2, ml: 4 }}
-                            onClick={() => removeEvent ? removeEvent(index) : null}>
+                            onClick={() =>
+                                removeEvent ? removeEvent(index) : null
+                            }>
                             Delete Event
                         </Button>
                     </Box>
