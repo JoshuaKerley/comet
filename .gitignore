@@ -1,2 +1,4 @@
 node_modules/
+expressjs-backend/coverage
 expressjs-backend/.env
+react-frontend/.env
