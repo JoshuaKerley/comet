@@ -15,7 +15,6 @@ const event = {
 };
 
 let createdEvent;
-let createdUser;
 
 test("Testing add event", async () => {
     createdEvent = await services.addEvent(event);
@@ -73,10 +72,5 @@ test("Testing update event by id - doesn't exist", async () => {
 
 test("Testing remove event - doesn't exist", async () => {
     let result = await services.deleteEventById(createdEvent._id);
-    expect(result == null).toBeTruthy();
-});
-
-test("Testing get user", async () => {
-    let result = await services.getUser("nulluser");
     expect(result == null).toBeTruthy();
 });

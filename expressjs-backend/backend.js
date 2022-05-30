@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const services = require("./models/event-services");
+const eventServices = require("./models/event-services");
+const userServices = require("./models/user-services");
 const emailService = require("./email-services");
 const app = express();
 const port = 5000;
@@ -15,26 +16,26 @@ app.get("/", (req, res) => {
 
 //GETS ALL EVENTS (SHOULD NOT BE NEEDED ON FRONTEND)
 app.get("/events", async (req, res) => {
-    let result = await services.getEvents();
+    let result = await eventServices.getEvents();
     res.send(result).end();
 });
 
 //GETS EVENTS CREATED BY SPECIFIC USER (EVENT COORDINATOR)
 app.get("/events/user/:user", async (req, res) => {
     const user = req.params["user"]; //or req.params.id
-    let result = await services.getEvents(user);
+    let result = await eventServices.getEvents(user);
     res.send(result).end();
 });
 
 app.get("/events/id/:id", async (req, res) => {
     const id = req.params["id"]; //or req.params.id
-    let result = await services.getEventById(id);
+    let result = await eventServices.getEventById(id);
     res.send(result).end();
 });
 
 app.delete("/events/:id", async (req, res) => {
     const id = req.params["id"]; //or req.params.id
-    let result = await services.deleteEventById(id);
+    let result = await eventServices.deleteEventById(id);
     if (result === undefined) res.status(404).send("Event not found.");
     else {
         res.status(204).end();
@@ -44,7 +45,7 @@ app.delete("/events/:id", async (req, res) => {
 app.patch("/events/:id", async (req, res) => {
     const id = req.params["id"];
     const data = req.body;
-    let result = await services.updateEventById(id, data);
+    let result = await eventServices.updateEventById(id, data);
     if (result === undefined) {
         res.status(404).send("Event not found.").end();
     } else {
@@ -70,8 +71,7 @@ app.post("/order", async (req, res) => {
 
 app.post("/events", async (req, res) => {
     const eventToAdd = req.body;
-    console.log(req.body);
-    const event = await services.addEvent(eventToAdd);
+    const event = await eventServices.addEvent(eventToAdd);
 
     if (event != false) {
         res.status(201).json(event).end();
@@ -80,9 +80,23 @@ app.post("/events", async (req, res) => {
     }
 });
 
+app.post("/users", async (req, res) => {
+    const user = req.body;
+    let createdUser;
+
+    try {
+        createdUser = await userServices.createUser(user);
+    } catch (err) {
+        res.status(404).send(err.message).end();
+        return;
+    }
+
+    res.send(createdUser).status(201).end();
+});
+
 app.get("/users/:username", async (req, res) => {
     const username = req.params["username"];
-    let result = await services.getUser(username);
+    let result = await userServices.getUser(username);
     if (result === undefined) {
         res.status(404).send("User not found.").end();
     } else {
@@ -100,7 +114,7 @@ async function validateCart(cart) {
     for (let event_id in cart) {
         let event;
         try {
-            event = await services.getEventById(event_id);
+            event = await eventServices.getEventById(event_id);
         } catch (err) {
             if (err.message.indexOf("Cast to ObjectId failed") !== -1)
                 throw new Error("Invalid event(s) specified.");
@@ -113,7 +127,7 @@ async function validateCart(cart) {
 }
 
 async function addTicketsToEvent(event_id, quantity, name, email, orderId) {
-    const event = await services.getEventById(event_id);
+    const event = await eventServices.getEventById(event_id);
     let tickets = event.tickets_sold,
         available = event.tickets_available;
 
@@ -130,7 +144,7 @@ async function addTicketsToEvent(event_id, quantity, name, email, orderId) {
         tickets.push(new_ticket);
     }
 
-    result = await services.updateEventById(event_id, {
+    result = await eventServices.updateEventById(event_id, {
         tickets_sold: tickets,
         tickets_available: available - quantity,
     });
