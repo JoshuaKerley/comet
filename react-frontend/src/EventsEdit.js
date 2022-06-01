@@ -247,6 +247,7 @@ function EventsEdit() {
                                 inputProps={{
                                     style: { height: "20px" },
                                     min: 1,
+                                    max: event.tickets_total,
                                 }}
                                 sx={{
                                     width: "100%",
