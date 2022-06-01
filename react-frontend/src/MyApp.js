@@ -5,6 +5,7 @@ import EventsAdd from "./EventsAdd";
 import EventsEdit from "./EventsEdit";
 import Login from "./Login";
 import Home from "./Home";
+import Purchase from "./Purchase";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 
@@ -16,13 +17,11 @@ function MyApp() {
             <Navbar />
             <Routes>
                 <Route path="/buyer/home" element={<Home />} />
+                <Route path="/purchase" element={<Purchase />} />
                 <Route path="/seller/login" element={<Login />} />
                 <Route path="/seller/events/view" element={<EventsView />} />
                 <Route path="/seller/events/add" element={<EventsAdd />} />
-                <Route
-                    path="/seller/events/edit/:id"
-                    element={<EventsEdit />}
-                />
+                <Route path="/seller/events/edit/:id" element={<EventsEdit />} />
                 {/* <Table eventData={events} removeEvent={removeOneEvent} /> */}
             </Routes>
         </div>

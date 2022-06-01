@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Container, Box, Paper, Button, Typography } from "@mui/material";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import axios from "axios";
 import Event from "./Event";
 import TicketModal from "./TicketModal";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
     const [events, setEvents] = useState([]);
@@ -11,6 +13,7 @@ function Home() {
     const [selectedEvent, setSelectedEvent] = useState({});
     const [cart, setCart] = useState({});
     const [numTickets, setNumTickets] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchEvents()
@@ -39,9 +42,19 @@ function Home() {
     }
 
     function handleCart(id, num_tickets) {
-        console.log("cart", cart);
+        let index;
+        for (let i = 0; i < events.length; i++) {
+            if (events[i]._id === id) {
+                index = i;
+                break;
+            }
+        }
+
         if (num_tickets > 0) {
-            setCart({ ...cart, [id]: num_tickets });
+            setCart({ ...cart, [id]: {
+                num_tickets: num_tickets,
+                ticket_price: events[index].tickets_price
+            }});
         } else if (id in cart) {
             setCart((prev) => {
                 delete cart[id];
@@ -51,9 +64,8 @@ function Home() {
     }
 
     function openModal(index) {
-        console.log(index);
         setSelectedEvent(events[index]);
-        setNumTickets(events[index]._id in cart ? cart[events[index]._id] : 0);
+        setNumTickets(events[index]._id in cart ? cart[events[index]._id]["num_tickets"] : 0);
         setOpen(true);
     }
 
@@ -62,6 +74,19 @@ function Home() {
             <Typography variant="h2" align="center">
                 Buy Tickets!
             </Typography>
+            <Box sx={{ mt: 2, width: "100%", display: "flex", justifyContent: "center" }}>
+                <Button
+                    variant="contained"
+                    sx={{
+                        display: "flex",
+                        alignItems: "center"
+                    }}
+                    onClick={() =>
+                        navigate("/purchase", { state: { cart: cart } })
+                    }>
+                    <ShoppingCartIcon fontSize={"large"} />
+                </Button>
+            </Box>
             {loaded && events.length > 0 ? (
                 events.map((event, i) => {
                     return (
@@ -71,6 +96,7 @@ function Home() {
                             eventData={event}
                             removeEvent={null}
                             viewTickets={openModal}
+                            eventCart={event._id in cart ? cart[event._id]["num_tickets"] : 0}
                         />
                     );
                 })

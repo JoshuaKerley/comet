@@ -76,6 +76,7 @@ function EventsView() {
                             eventData={event}
                             removeEvent={removeEvent}
                             viewTickets={null}
+                            eventCart={null}
                         />
                     );
                 })

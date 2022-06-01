@@ -70,6 +70,7 @@ function EventsEdit() {
                 console.log(e);
                 setEvent({ ...event, [type]: e });
             } else if (type === "time_doors" || type === "time_show") {
+                console.log(e);
                 setEvent({ ...event, [type]: e });
             } else {
                 setEvent({ ...event, [type]: e.target.value });
@@ -92,19 +93,21 @@ function EventsEdit() {
 
     async function submitForm() {
         const result = await editEvent();
-        setEvent({
-            coordinator: "Default",
-            event_name: "",
-            location: "",
-            date: new Date(),
-            time_doors: new Date(),
-            time_show: new Date(),
-            description: "",
-            tickets_total: "",
-            tickets_available: "",
-            tickets_price: "",
-        });
-        navigate("/seller/events/view");
+        if (result) {
+            setEvent({
+                coordinator: "Default",
+                event_name: "",
+                location: "",
+                date: new Date(),
+                time_doors: new Date(),
+                time_show: new Date(),
+                description: "",
+                tickets_total: "",
+                tickets_available: "",
+                tickets_price: "",
+            });
+            navigate("/seller/events/view");
+        }
     }
 
     return (

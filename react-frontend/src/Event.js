@@ -1,7 +1,7 @@
 import { Box, Paper, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function Event({ viewTickets, index, eventData, removeEvent }) {
+function Event({ viewTickets, index, eventData, removeEvent, eventCart }) {
     const {
         _id,
         date,
@@ -27,7 +27,13 @@ function Event({ viewTickets, index, eventData, removeEvent }) {
                 <Typography variant="h6" sx={{ textDecoration: "underline" }}>
                     {label}
                 </Typography>
-                <Typography>{data}</Typography>
+                {
+                    label === "Available Tickets" && !data ? (
+                        <Typography sx={{ color: "red" }}>{"SOLD OUT"}</Typography>
+                    ) : (
+                        <Typography>{data}</Typography>
+                    )
+                }
             </Box>
         );
     }
@@ -66,12 +72,33 @@ function Event({ viewTickets, index, eventData, removeEvent }) {
                     justifyContent: "left",
                 }}>
                 {viewTickets ? (
-                    <Button
-                        variant="contained"
-                        sx={{ mt: 2 }}
-                        onClick={() => viewTickets(index)}>
-                        Select Tickets
-                    </Button>
+                    <Box sx={{
+                        display: "flex",
+                        flexDirection: { xs: "column", md: "row"}
+                    }}>
+                        <Button
+                            variant="contained"
+                            sx={{ mt: 2 }}
+                            onClick={() => viewTickets(index)}>
+                            Select Tickets
+                        </Button>
+                        <Typography
+                            sx={{
+                                color: "red",
+                                mt: { xs: 3 },
+                                ml: { md: 3 }
+                            }}>
+                                {`Currently holding ${eventCart} tickets for this event.`}
+                        </Typography>
+                        <Typography
+                            sx={{
+                                color: "red",
+                                mt: { xs: 1, md: 3 },
+                                ml: { xs: 0, md: 1 }
+                            }}>
+                                {`Total cost: $${eventCart * tickets_price}`}
+                        </Typography>
+                    </Box>
                 ) : (
                     <Box>
                         <Button
