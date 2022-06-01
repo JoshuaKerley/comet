@@ -50,12 +50,12 @@ function Event({ viewTickets, index, eventData, removeEvent, eventCart }) {
                 {renderField("Location", location)}
                 {renderField("Date", new Date(date).toLocaleDateString())}
                 {renderField(
-                    "Show Time",
-                    new Date(time_show).toLocaleTimeString()
-                )}
-                {renderField(
                     "Doors Time",
                     new Date(time_doors).toLocaleTimeString()
+                )}
+                {renderField(
+                    "Show Time",
+                    new Date(time_show).toLocaleTimeString()
                 )}
                 {renderField("Description", description)}
                 {renderField("Total Tickets", tickets_total)}

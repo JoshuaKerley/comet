@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
-import { Container, Box, Paper, Button, Typography } from "@mui/material";
+import {
+    Container,
+    Box,
+    Paper,
+    Button,
+    Typography,
+    TextField,
+} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import Event from "./Event";
 import TicketModal from "./TicketModal";
@@ -8,6 +16,8 @@ import { useNavigate } from "react-router-dom";
 
 function Home() {
     const [events, setEvents] = useState([]);
+    const [filterEvents, setFilterEvents] = useState([]);
+    const [search, setSearch] = useState("");
     const [loaded, setLoaded] = useState(false);
     const [open, setOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState({});
@@ -21,6 +31,7 @@ function Home() {
                 console.log(result);
                 if (result) {
                     setEvents(result);
+                    setFilterEvents(result);
                 }
             })
             .then((data) => {
@@ -44,7 +55,7 @@ function Home() {
     function handleCart(id, num_tickets) {
         let index;
         for (let i = 0; i < events.length; i++) {
-            if (events[i]._id === id) {
+            if (filterEvents[i]._id === id) {
                 index = i;
                 break;
             }
@@ -55,7 +66,7 @@ function Home() {
                 ...cart,
                 [id]: {
                     num_tickets: num_tickets,
-                    ticket_price: events[index].tickets_price,
+                    ticket_price: filterEvents[index].tickets_price,
                 },
             });
         } else if (id in cart) {
@@ -67,13 +78,24 @@ function Home() {
     }
 
     function openModal(index) {
-        setSelectedEvent(events[index]);
+        setSelectedEvent(filterEvents[index]);
         setNumTickets(
-            events[index]._id in cart
-                ? cart[events[index]._id]["num_tickets"]
+            filterEvents[index]._id in cart
+                ? cart[filterEvents[index]._id]["num_tickets"]
                 : 0
         );
         setOpen(true);
+    }
+
+    function filter() {
+        setFilterEvents(
+            events.filter((event) => {
+                return event.event_name
+                    .toLowerCase()
+                    .includes(search.toLowerCase());
+            })
+        );
+        setSearch("");
     }
 
     return (
@@ -100,8 +122,38 @@ function Home() {
                     <ShoppingCartIcon fontSize={"large"} />
                 </Button>
             </Box>
-            {loaded && events.length > 0 ? (
-                events.map((event, i) => {
+            <Box
+                sx={{
+                    mt: 4,
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "center",
+                }}>
+                <TextField
+                    placeholder="Search by Show"
+                    value={search}
+                    onChange={(e) => setSearch(e.target.value)}
+                    inputProps={{
+                        style: { height: "20px" },
+                    }}
+                    sx={{
+                        mb: { xs: 2, sm: 0 },
+                        width: { xs: "100%", sm: "49%" },
+                    }}
+                    autoComplete="off"
+                />
+                <Button
+                    variant="contained"
+                    sx={{
+                        display: "flex",
+                        alignItems: "center",
+                    }}
+                    onClick={filter}>
+                    <SearchIcon fontSize={"large"} />
+                </Button>
+            </Box>
+            {loaded && filterEvents.length > 0 ? (
+                filterEvents.map((event, i) => {
                     return (
                         <Event
                             key={event._id}
@@ -117,6 +169,10 @@ function Home() {
                         />
                     );
                 })
+            ) : loaded && events.length > 0 && filterEvents.length == 0 ? (
+                <Typography variant="h5" align="center" sx={{ mt: 5 }}>
+                    No events match your search
+                </Typography>
             ) : loaded && events.length == 0 ? (
                 <Typography variant="h5" align="center" sx={{ mt: 5 }}>
                     No events available yet
