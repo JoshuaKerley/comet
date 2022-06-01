@@ -22,15 +22,15 @@ import { isAuthenticated } from "./auth";
 function EventsAdd() {
     const [event, setEvent] = useState({
         coordinator: isAuthenticated() && isAuthenticated().id,
-        event_name: "Test Event",
-        location: "Test location",
+        event_name: "",
+        location: "",
         date: new Date(),
         time_doors: new Date(),
         time_show: new Date(),
-        description: "I am testing this",
-        tickets_total: "10",
-        tickets_available: "10",
-        tickets_price: "5",
+        description: "",
+        tickets_total: "",
+        tickets_available: "",
+        tickets_price: "",
     });
     const navigate = useNavigate();
 
@@ -62,19 +62,21 @@ function EventsAdd() {
 
     async function submitForm() {
         const result = await addEvent(event);
-        setEvent({
-            coordinator: "Default",
-            event_name: "",
-            location: "",
-            date: new Date(),
-            time_doors: new Date(),
-            time_show: new Date(),
-            description: "",
-            tickets_total: "",
-            tickets_available: "",
-            tickets_price: "",
-        });
-        navigate("/seller/events/view");
+        if (result) {
+            setEvent({
+                coordinator: "Default",
+                event_name: "",
+                location: "",
+                date: new Date(),
+                time_doors: new Date(),
+                time_show: new Date(),
+                description: "",
+                tickets_total: "",
+                tickets_available: "",
+                tickets_price: "",
+            });
+            navigate("/seller/events/view");
+        }
     }
 
     return (
