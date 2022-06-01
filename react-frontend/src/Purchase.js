@@ -1,4 +1,11 @@
-import { Container, Box, Paper, Typography, TextField, Button } from "@mui/material";
+import {
+    Container,
+    Box,
+    Paper,
+    Typography,
+    TextField,
+    Button,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -8,28 +15,30 @@ function Purchase() {
     const [cost, setCost] = useState(5);
     const [user, setUser] = useState({
         name: "",
-        email: ""
-    })
+        email: "",
+    });
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
         if (location.state) {
-           setCart(location.state.cart);
+            setCart(location.state.cart);
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         function calculateTotalCost() {
             let total_cost = 0;
             for (const id in cart) {
-                total_cost += (parseInt(cart[id]["num_tickets"]) * cart[id]["ticket_price"]);
+                total_cost +=
+                    parseInt(cart[id]["num_tickets"]) *
+                    cart[id]["ticket_price"];
             }
 
             return total_cost;
         }
         setCost(calculateTotalCost());
-    }, [cart])
+    }, [cart]);
 
     function handleChange(type) {
         return (e) => {
@@ -38,7 +47,7 @@ function Purchase() {
     }
 
     async function orderTickets() {
-        let final_cart = {}
+        let final_cart = {};
         for (let id in cart) {
             final_cart[id] = cart[id]["num_tickets"];
         }
@@ -46,8 +55,8 @@ function Purchase() {
         let order = {
             name: user.name,
             email: user.email,
-            cart: final_cart
-        }
+            cart: final_cart,
+        };
 
         try {
             const response = await axios.post(
@@ -63,11 +72,11 @@ function Purchase() {
 
     async function confirmPurchase() {
         const result = await orderTickets();
-        console.log("result", result)
+        console.log("result", result);
         if (result) {
             setUser({
                 name: "",
-                email: ""
+                email: "",
             });
             navigate("/buyer/home");
         }
@@ -77,8 +86,12 @@ function Purchase() {
         <Container maxWidth={"xl"} sx={{ mt: 15, pb: 5 }}>
             <Paper
                 elevation={5}
-                sx={{p: 5, display: "flex", flexDirection: "column", justifyContent: "center" }}
-            >
+                sx={{
+                    p: 5,
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                }}>
                 <Typography variant="h2" align="center">
                     Checkout
                 </Typography>

@@ -27,13 +27,11 @@ function Event({ viewTickets, index, eventData, removeEvent, eventCart }) {
                 <Typography variant="h6" sx={{ textDecoration: "underline" }}>
                     {label}
                 </Typography>
-                {
-                    label === "Available Tickets" && !data ? (
-                        <Typography sx={{ color: "red" }}>{"SOLD OUT"}</Typography>
-                    ) : (
-                        <Typography>{data}</Typography>
-                    )
-                }
+                {label === "Available Tickets" && !data ? (
+                    <Typography sx={{ color: "red" }}>{"SOLD OUT"}</Typography>
+                ) : (
+                    <Typography>{data}</Typography>
+                )}
             </Box>
         );
     }
@@ -72,10 +70,11 @@ function Event({ viewTickets, index, eventData, removeEvent, eventCart }) {
                     justifyContent: "left",
                 }}>
                 {viewTickets ? (
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: { xs: "column", md: "row"}
-                    }}>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            flexDirection: { xs: "column", md: "row" },
+                        }}>
                         <Button
                             variant="contained"
                             sx={{ mt: 2 }}
@@ -86,17 +85,17 @@ function Event({ viewTickets, index, eventData, removeEvent, eventCart }) {
                             sx={{
                                 color: "red",
                                 mt: { xs: 3 },
-                                ml: { md: 3 }
+                                ml: { md: 3 },
                             }}>
-                                {`Currently holding ${eventCart} tickets for this event.`}
+                            {`Currently holding ${eventCart} tickets for this event.`}
                         </Typography>
                         <Typography
                             sx={{
                                 color: "red",
                                 mt: { xs: 1, md: 3 },
-                                ml: { xs: 0, md: 1 }
+                                ml: { xs: 0, md: 1 },
                             }}>
-                                {`Total cost: $${eventCart * tickets_price}`}
+                            {`Total cost: $${eventCart * tickets_price}`}
                         </Typography>
                     </Box>
                 ) : (
