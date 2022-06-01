@@ -25,17 +25,9 @@ async function send(orderDetails, orderId) {
         for (let ticket of currentOrderTickets) {
             tickets.push({
                 event_name: event.event_name,
-                date: event.date.toLocaleString().split(",")[0],
-                doors: event.time_doors.toLocaleString("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                }),
-                show: event.time_show.toLocaleString("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                }),
+                date: new Date(event.date).toLocaleDateString(),
+                doors: new Date(event.time_doors).toLocaleTimeString(),
+                show: new Date(event.time_show).toLocaleTimeString(),
                 number: ticket.id,
             });
         }

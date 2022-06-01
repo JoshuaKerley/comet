@@ -23,8 +23,9 @@ const authenticated_routes = [
     "/seller/login",
     "/seller/signup"
 ];
-const not_authenticated_pages = ["Sign up", "Log In"];
-const not_authenticated_routes = [ "/seller/signup", "/seller/login"];
+
+const not_authenticated_pages = ["All Tickets","Sign up", "Log In"];
+const not_authenticated_routes = ["/buyer/home","/seller/signup", "/seller/login"];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
@@ -130,7 +131,8 @@ const Navbar = () => {
                                               handleCloseNavMenu(
                                                   authenticated_routes[i]
                                               )
-                                          }>
+                                          }
+                                          sx={{ justifyContent: "center" }}>
                                           <Typography textAlign="center">
                                               {page}
                                           </Typography>
@@ -143,7 +145,8 @@ const Navbar = () => {
                                               handleCloseNavMenu(
                                                   not_authenticated_routes[i]
                                               )
-                                          }>
+                                          }
+                                          sx={{ justifyContent: "center" }}>
                                           <Typography textAlign="center">
                                               {page}
                                           </Typography>
@@ -165,7 +168,8 @@ const Navbar = () => {
                                           handleCloseNavMenu(
                                               authenticated_routes[i]
                                           )
-                                      }>
+                                      }
+                                      sx={{ justifyContent: "center" }}>
                                       <Typography textAlign="center">
                                           {page}
                                       </Typography>
@@ -178,7 +182,8 @@ const Navbar = () => {
                                           handleCloseNavMenu(
                                               not_authenticated_routes[i]
                                           )
-                                      }>
+                                      }
+                                      sx={{ justifyContent: "center" }}>
                                       <Typography textAlign="center">
                                           {page}
                                       </Typography>

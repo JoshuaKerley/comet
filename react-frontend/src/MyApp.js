@@ -6,6 +6,7 @@ import EventsEdit from "./EventsEdit";
 import Login from "./Login";
 import Signup from "./Signup";
 import Home from "./Home";
+import Purchase from "./Purchase";
 import axios from "axios";
 import { Routes, Route } from "react-router-dom";
 
@@ -17,6 +18,7 @@ function MyApp() {
             <Navbar />
             <Routes>
                 <Route path="/buyer/home" element={<Home />} />
+                <Route path="/purchase" element={<Purchase />} />
                 <Route path="/seller/login" element={<Login />} />
                 <Route path="/seller/signup" element={<Signup />} />
                 <Route path="/seller/events/view" element={<EventsView />} />
