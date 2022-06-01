@@ -22,7 +22,6 @@ function Purchase() {
     useEffect(() => {
         function calculateTotalCost() {
             let total_cost = 0;
-            console.log("-->", cart)
             for (const id in cart) {
                 total_cost += (parseInt(cart[id]["num_tickets"]) * cart[id]["ticket_price"]);
             }
