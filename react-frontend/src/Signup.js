@@ -13,7 +13,7 @@ import {
 import axios from "axios";
 
 function Signup() {
-    const [sign, setSign] = useState({
+    const [login, setLogin] = useState({
         username: "",
         password: "",
     });
@@ -21,14 +21,19 @@ function Signup() {
 
     function handleChange(type) {
         return (e) => {
-            setSign({ ...sign, [type]: e.target.value });
+            setLogin({ ...login, [type]: e.target.value });
         };
     }
+
+    async function submitForm() {
+        //TODO: POST HERE
+    }
+
     return (
         <Container maxWidth="xl" sx={{ mt: 15, mb: 5, alignItems: "center" }}>
             <Paper elevation={5} sx={{ p: 5 }}>
                 <Typography variant="h2" align="center">
-                    Log In
+                    Sign Up
                 </Typography>
                 <Box
                     sx={{
@@ -72,7 +77,7 @@ function Signup() {
                         variant="contained"
                         sx={{ mt: 4 }}
                         onClick={submitForm}>
-                        Log In
+                        Sign Up
                     </Button>
                 </Box>
             </Paper>

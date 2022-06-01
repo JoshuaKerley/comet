@@ -21,11 +21,10 @@ const authenticated_routes = [
     "/seller/events/add",
     "/seller/events/view",
     "/seller/login",
-    "/seller/signup"
 ];
 
-const not_authenticated_pages = ["All Tickets","Sign up", "Log In"];
-const not_authenticated_routes = ["/buyer/home","/seller/signup", "/seller/login"];
+const not_authenticated_pages = ["All Tickets", "Sign up", "Log In"];
+const not_authenticated_routes = ["/buyer/home", "/seller/signup", "/seller/login"];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
