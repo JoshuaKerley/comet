@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-    Container,
-    Box,
-    Button,
-    Typography,
-    TextField,
-} from "@mui/material";
+import { Container, Box, Button, Typography, TextField } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
