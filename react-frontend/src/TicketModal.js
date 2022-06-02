@@ -76,7 +76,7 @@ function TicketModal({
                         flexDirection: "column",
                         justifyContent: "center",
                         alignItems: "center",
-                        borderRight: "1px solid black",
+                        borderRight: "1px solid black"
                     }}>
                     <Typography variant="h5">{month}</Typography>
                     <Typography variant="h4">{day}</Typography>
@@ -87,7 +87,7 @@ function TicketModal({
                         width: "60%",
                         display: "flex",
                         flexDirection: "column",
-                        borderRight: "1px solid black",
+                        borderRight: "1px solid black"
                     }}>
                     <Typography variant="h5">{event_name}</Typography>
                     <Typography variant="h5" sx={{ mt: 1 }}>
@@ -117,11 +117,7 @@ function TicketModal({
                         label="# of Tickets"
                         type="number"
                         value={numTickets}
-                        onChange={(e) =>
-                            setNumTickets(
-                                Math.min(e.target.value, tickets_available)
-                            )
-                        }
+                        onChange={(e) => setNumTickets(Math.min(e.target.value, tickets_available))}
                         inputProps={{
                             style: { height: "10px" },
                             min: 0,

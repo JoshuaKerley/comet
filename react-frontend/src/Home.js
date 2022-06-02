@@ -137,7 +137,6 @@ function Home() {
                         style: { height: "20px" },
                     }}
                     sx={{
-                        mb: { xs: 2, sm: 0 },
                         width: { xs: "100%", sm: "49%" },
                     }}
                     autoComplete="off"

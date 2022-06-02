@@ -23,7 +23,7 @@ const authenticated_routes = [
     "/seller/login",
 ];
 
-const not_authenticated_pages = ["All Tickets", "Log In"];
+const not_authenticated_pages = ["All Tickets", "Sell"];
 const not_authenticated_routes = ["/buyer/home", "/seller/login"];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
