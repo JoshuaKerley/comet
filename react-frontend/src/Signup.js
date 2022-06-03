@@ -26,7 +26,16 @@ function Signup() {
     }
 
     async function submitForm() {
-        //TODO: POST HERE
+        try {
+            const response = await axios.post(
+                process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/users",
+                login
+            );
+            return response;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
     }
 
     return (
