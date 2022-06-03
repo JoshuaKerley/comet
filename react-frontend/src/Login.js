@@ -57,6 +57,10 @@ function Login() {
         }
     }
 
+    async function signRedirect() {
+        navigate("/seller/signup");
+    }
+
     return (
         <Container maxWidth="xl" sx={{ mt: 15, mb: 5, alignItems: "center" }}>
             <Paper elevation={5} sx={{ p: 5 }}>
@@ -106,6 +110,15 @@ function Login() {
                         sx={{ mt: 4 }}
                         onClick={submitForm}>
                         Log In
+                    </Button>
+                </Box>
+                <Box>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        sx={{ mt: 4, marginRight: 50 }}
+                        onClick={signRedirect}>
+                        Signup
                     </Button>
                 </Box>
             </Paper>
