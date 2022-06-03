@@ -78,7 +78,6 @@ function EventsAdd() {
             navigate("/seller/events/view");
         }
     }
-
     return (
         <Container maxWidth="xl" sx={{ mt: 15, mb: 5 }}>
             <Paper elevation={5} sx={{ p: 5 }}>
@@ -214,6 +213,7 @@ function EventsAdd() {
                                 inputProps={{
                                     style: { height: "20px" },
                                     min: 1,
+                                    max: event.tickets_total,
                                 }}
                                 sx={{
                                     width: "100%",
