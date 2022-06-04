@@ -9,19 +9,22 @@ import {
     FormControlLabel,
     Button,
     Typography,
+    Link,
 } from "@mui/material";
 import axios from "axios";
 
 function Signup() {
-    const [login, setLogin] = useState({
+    const [signup, setSignup] = useState({
         username: "",
         password: "",
     });
+    const [success, setSuccess] = useState(false);
     const navigate = useNavigate();
 
     function handleChange(type) {
         return (e) => {
-            setLogin({ ...login, [type]: e.target.value });
+            setSuccess(false);
+            setSignup({ ...signup, [type]: e.target.value });
         };
     }
 
@@ -29,8 +32,10 @@ function Signup() {
         try {
             const response = await axios.post(
                 process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/users",
-                login
+                signup
             );
+            setSuccess(true);
+            setSignup({ username: "", password: "" });
             return response;
         } catch (error) {
             console.log(error);
@@ -44,6 +49,13 @@ function Signup() {
                 <Typography variant="h2" align="center">
                     Sign Up
                 </Typography>
+                {success ? (
+                    <Box sx={{ mt: 2 }}>
+                        <Typography sx={{ color: "green" }}>
+                            Successfully signed up!
+                        </Typography>
+                    </Box>
+                ) : null}
                 <Box
                     sx={{
                         mt: 5,
@@ -55,7 +67,7 @@ function Signup() {
                     <TextField
                         required
                         label="Username"
-                        value={login.username}
+                        value={signup.username}
                         onChange={handleChange("username")}
                         inputProps={{
                             style: { height: "20px" },
@@ -70,7 +82,7 @@ function Signup() {
                         required
                         label="Password"
                         type="password"
-                        value={login.password}
+                        value={signup.password}
                         onChange={handleChange("password")}
                         inputProps={{
                             style: { height: "20px" },
@@ -88,6 +100,13 @@ function Signup() {
                         onClick={submitForm}>
                         Sign Up
                     </Button>
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                    <Link href="/seller/login">
+                        <Typography sx={{ "&:hover": { pointer: "cursor" } }}>
+                            Have an account already? Click here to log in!
+                        </Typography>
+                    </Link>
                 </Box>
             </Paper>
         </Container>

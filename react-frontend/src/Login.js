@@ -9,6 +9,7 @@ import {
     FormControlLabel,
     Button,
     Typography,
+    Link,
 } from "@mui/material";
 import axios from "axios";
 
@@ -55,10 +56,6 @@ function Login() {
             );
             navigate("/seller/events/view");
         }
-    }
-
-    async function signRedirect() {
-        navigate("/seller/signup");
     }
 
     return (
@@ -112,14 +109,12 @@ function Login() {
                         Log In
                     </Button>
                 </Box>
-                <Box>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        sx={{ mt: 4, marginRight: 50 }}
-                        onClick={signRedirect}>
-                        Signup
-                    </Button>
+                <Box sx={{ mt: 2 }}>
+                    <Link href="/seller/signup">
+                        <Typography sx={{ "&:hover": { pointer: "cursor" } }}>
+                            Don't have an account yet? Click here to sign up!
+                        </Typography>
+                    </Link>
                 </Box>
             </Paper>
         </Container>
