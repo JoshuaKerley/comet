@@ -2,6 +2,22 @@
 
 #
 
+### PROJECT BLURB:
+
+ComeT is for show production companies who want an easy way to sell tickets. ComeT is a ticket selling service that is built for independent show producers. Unlike EventBrite, our product is meant for small scale events and is priced accordingly.
+
+### UI PROTOTYPE:
+
+-   Last updated on April 27, 2022
+-   https://www.figma.com/file/3kMM2qJeZKuBt4mSxHn169/Show-Ticket-Site-Prototype?node-id=0%3A1
+
+### DIAGRAMS:
+
+- Use Case Diagram
+    - https://github.com/JoshuaKerley/comet/wiki/Use-Case-Diagram
+- Class Diagram
+    - https://github.com/JoshuaKerley/comet/wiki/Class-Diagram
+
 ### STYLE GUIDE:
 
 -   Specifics can be found in .prettierrc
