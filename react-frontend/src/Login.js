@@ -18,10 +18,12 @@ function Login() {
         username: "",
         password: "",
     });
+    const [error, setError] = useState(false);
     const navigate = useNavigate();
 
     function handleChange(type) {
         return (e) => {
+            setError(false);
             setLogin({ ...login, [type]: e.target.value });
         };
     }
@@ -35,6 +37,7 @@ function Login() {
                 console.log("LOGIN SUCCESS");
                 return response.data;
             } else {
+                setError(true);
                 console.log("FAILED LOGIN");
                 return false;
             }
@@ -64,6 +67,13 @@ function Login() {
                 <Typography variant="h2" align="center">
                     Log In
                 </Typography>
+                {error ? (
+                    <Box sx={{ mt: 2 }}>
+                        <Typography sx={{ color: "red" }}>
+                            Error logging in!
+                        </Typography>
+                    </Box>
+                ) : null}
                 <Box
                     sx={{
                         mt: 5,
