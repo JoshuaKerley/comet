@@ -70,7 +70,7 @@ function Login() {
                 {error ? (
                     <Box sx={{ mt: 2 }}>
                         <Typography sx={{ color: "red" }}>
-                            Error logging in!
+                            Incorrect username or password!
                         </Typography>
                     </Box>
                 ) : null}
