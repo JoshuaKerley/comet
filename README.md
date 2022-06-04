@@ -18,7 +18,7 @@ ComeT is for show production companies who want an easy way to sell tickets. Com
 - Class Diagram
     - https://github.com/JoshuaKerley/comet/wiki/Class-Diagram
 
-### STYLE GUIDE:
+### DEVELOPMENT ENVIRONMENT & STYLE GUIDE SETUP:
 
 -   Specifics can be found in .prettierrc
 -   INSTALL FORMATTER:
