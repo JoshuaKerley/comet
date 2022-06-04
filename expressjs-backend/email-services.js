@@ -35,7 +35,7 @@ async function send(orderDetails, orderId) {
 
     const template = handlebars.compile(html);
     const htmlToSend = template({ order_number: orderId, tickets: tickets });
-
+    console.log("sending email...");
     nodeoutlook.sendEmail({
         auth: auth,
         from: "ComeT Ticket Services <no-reply.cometix@outlook.com>",
