@@ -4,7 +4,7 @@
 
 ### PROJECT BLURB:
 
-ComeT is for show production companies who want an easy way to sell tickets. ComeT is a ticket selling service that is built for independent show producers. Unlike EventBrite, our product is meant for small scale events and is priced accordingly.
+ComeT is for show production companies who want an easy way to sell tickets. ComeT is a ticket selling service that is built for independent show producers. Unlike EventBrite, our product is meant for small scale events and is priced accordingly. ComeT has an interface for sellers to add, customize, view, edit, and delete their events. ComeT also has an interface for buyers to filter through and purchase multiple tickets from multiple events simultaneously.
 
 ### UI PROTOTYPE:
 
