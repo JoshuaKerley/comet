@@ -25,7 +25,6 @@ const authenticated_routes = [
 
 const not_authenticated_pages = ["All Tickets", "Sell"];
 const not_authenticated_routes = ["/buyer/home", "/seller/login"];
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navbar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);

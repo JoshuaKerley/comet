@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 
-function Login() {
+function Signup() {
     const [login, setLogin] = useState({
         username: "",
         password: "",
@@ -25,47 +25,24 @@ function Login() {
         };
     }
 
-    async function getLoginAuth(user, pwd) {
+    async function submitForm() {
         try {
-            const response = await axios.get(
-                process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/users/" + user
+            const response = await axios.post(
+                process.env.REACT_APP_BACKEND_URL_PRODUCTION + "/users",
+                login
             );
-            if (response.data.password === pwd) {
-                console.log("LOGIN SUCCESS");
-                return response.data;
-            } else {
-                console.log("FAILED LOGIN");
-                return false;
-            }
+            return response;
         } catch (error) {
-            //We're not handling errors. Just logging into the console.
             console.log(error);
             return false;
         }
-    }
-
-    async function submitForm() {
-        const result = await getLoginAuth(login.username, login.password);
-        console.log(result);
-        if (result) {
-            setLogin({ username: "", password: "" });
-            localStorage.setItem(
-                "user",
-                JSON.stringify({ id: result._id, username: result.username })
-            );
-            navigate("/seller/events/view");
-        }
-    }
-
-    async function signRedirect() {
-        navigate("/seller/signup");
     }
 
     return (
         <Container maxWidth="xl" sx={{ mt: 15, mb: 5, alignItems: "center" }}>
             <Paper elevation={5} sx={{ p: 5 }}>
                 <Typography variant="h2" align="center">
-                    Log In
+                    Sign Up
                 </Typography>
                 <Box
                     sx={{
@@ -109,16 +86,7 @@ function Login() {
                         variant="contained"
                         sx={{ mt: 4 }}
                         onClick={submitForm}>
-                        Log In
-                    </Button>
-                </Box>
-                <Box>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        sx={{ mt: 4, marginRight: 50 }}
-                        onClick={signRedirect}>
-                        Signup
+                        Sign Up
                     </Button>
                 </Box>
             </Paper>
@@ -126,4 +94,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Signup;
